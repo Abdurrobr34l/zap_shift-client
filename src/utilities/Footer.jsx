@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 import { FaLinkedin, FaFacebook, FaYoutube } from "react-icons/fa";
 import { RxCrossCircled } from "react-icons/rx";
+import Logo from "../../Components/Logo";
 
 const navLinks = [
   { id: 1, name: "Services", path: "/services" },
@@ -18,13 +19,10 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto flex flex-col items-center text-center px-4">
 
         {/* LOGO */}
-        <Link to="/" className="flex items-center gap-2 mb-6">
-          <div className="w-5 h-5 bg-primary rounded-sm rotate-12"></div>
-          <span className="text-2xl font-bold">ZapShift</span>
-        </Link>
+        <Logo></Logo>
 
         {/* DESCRIPTION */}
-        <p className="text-sm text-neutral-content/80 max-w-xl leading-relaxed">
+        <p className="mt-6 text-sm text-neutral-content/80 max-w-xl leading-relaxed">
           Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. 
           From personal packages to business shipments — we deliver on time, every time.
         </p>

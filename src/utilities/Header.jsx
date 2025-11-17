@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
+import Logo from "../../Components/Logo";
 
 const navLinks = [
   { id: 1, name: "Services", path: "/services" },
@@ -48,10 +49,7 @@ const Header = () => {
         </div>
 
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 cursor-pointer">
-          <div className="w-4 h-4 bg-primary rounded-sm rotate-12"></div>
-          <span className="text-xl font-bold text-base-content">ZapShift</span>
-        </Link>
+       <Logo></Logo>
       </div>
 
       {/* CENTER: Desktop Navigation */}

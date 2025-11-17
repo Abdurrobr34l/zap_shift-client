@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
 import Logo from "../../Components/Logo";
+import { FaArrowRight } from "react-icons/fa";
 
 const navLinks = [
   { id: 1, name: "Services", path: "/services" },
@@ -67,33 +68,20 @@ const Header = () => {
       <div className="navbar-end flex items-center gap-3">
         <Link
           to="/signin"
-          className="btn btn-sm bg-base-100 border-base-300 text-base-content hover:bg-base-200"
+          className="btn btn-sm btn-white bg-base-100 border-base-300 text-base-content hover:bg-base-200"
         >
           Sign In
         </Link>
 
         <Link
           to="/signup"
-          className="btn btn-sm btn-primary text-base-100 px-5"
+          className="btn btn-sm btn-accent text-base-100 px-5"
         >
           Sign Up
         </Link>
 
-        <button className="btn btn-sm btn-circle bg-neutral text-base-100 hover:bg-neutral-focus">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M14 5l7 7m0 0l-7 7m7-7H3"
-            />
-          </svg>
+        <button className="btn btn-lg btn-circle bg-primary-content group">
+         <FaArrowRight className="text-xl  text-accent transition-transform duration-300 group-hover:text-white group-hover:-rotate-14" />
         </button>
       </div>
     </div>

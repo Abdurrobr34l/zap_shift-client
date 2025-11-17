@@ -6,7 +6,7 @@ const Logo = () => {
   return (
     <Link to={"/"} className='flex items-center cursor-pointer w-[150px]'>
       <img src={logo} alt="It is website logo image"/>
-          <span className="relative top-2 right-3 text-xl font-bold text-base-content lg:text-[32px]">ZapShift</span>
+          <span className="relative top-2 right-3 text-xl font-bold text-[#303030] lg:text-[32px]">ZapShift</span>
     </Link>
   );
 };

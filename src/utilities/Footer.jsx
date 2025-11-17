@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router";
 import { FaLinkedin, FaFacebook, FaYoutube } from "react-icons/fa";
-import { RxCrossCircled } from "react-icons/rx";
 import Logo from "../../Components/Logo";
+import { FaXTwitter } from "react-icons/fa6";
 
 const navLinks = [
   { id: 1, name: "Services", path: "/services" },
@@ -15,15 +15,17 @@ const navLinks = [
 
 const Footer = () => {
   return (
-    <div className="bg-neutral text-neutral-content py-16 rounded-3xl">
+    <div className="bg-[#0B0B0B] text-neutral-content py-16 rounded-3xl">
       <div className="max-w-6xl mx-auto flex flex-col items-center text-center px-4">
 
         {/* LOGO */}
-        <Logo></Logo>
+        <div className="footer-logo">
+          <Logo></Logo>
+        </div>
 
         {/* DESCRIPTION */}
-        <p className="mt-6 text-sm text-neutral-content/80 max-w-xl leading-relaxed">
-          Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. 
+        <p className="mt-6 text-sm text-white! max-w-xl leading-relaxed">
+          Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle.
           From personal packages to business shipments — we deliver on time, every time.
         </p>
 
@@ -33,7 +35,7 @@ const Footer = () => {
         {/* NAV LINKS */}
         <div className="flex flex-wrap justify-center gap-6 text-sm font-medium">
           {navLinks.map((link) => (
-            <Link key={link.id} to={link.path} className="hover:text-primary transition">
+            <Link key={link.id} to={link.path} className="text-white! hover:text-accent! transition">
               {link.name}
             </Link>
           ))}
@@ -44,18 +46,37 @@ const Footer = () => {
 
         {/* SOCIAL ICONS */}
         <div className="flex items-center gap-6 text-2xl">
-          <a href="#" className="hover:text-primary transition">
-            <FaLinkedin />
-          </a>
-          <a href="#" className="hover:text-primary transition">
-            <RxCrossCircled />
-          </a>
-          <a href="#" className="hover:text-primary transition">
-            <FaFacebook />
-          </a>
-          <a href="#" className="hover:text-primary transition">
-            <FaYoutube />
-          </a>
+{/* LinkedIn */}
+      <a
+        href="#"
+        className="p-3 rounded-full bg-[#0A66C2]! text-white! text-2xl transition-transform duration-300 hover:scale-110"
+      >
+        <FaLinkedin />
+      </a>
+
+      {/* X / Twitter */}
+      <a
+        href="#"
+        className="p-3 rounded-full bg-[#1DA1F2]! text-white! text-2xl transition-transform duration-300 hover:scale-110"
+      >
+        <FaXTwitter />
+      </a>
+
+      {/* Facebook */}
+      <a
+        href="#"
+        className="p-3 rounded-full bg-[#1877F2]! text-white! text-2xl transition-transform duration-300 hover:scale-110"
+      >
+        <FaFacebook />
+      </a>
+
+      {/* YouTube */}
+      <a
+        href="#"
+        className="p-3 rounded-full bg-[#FF0000]! text-white! text-2xl transition-transform duration-300 hover:scale-110"
+      >
+        <FaYoutube />
+      </a>
         </div>
       </div>
     </div>

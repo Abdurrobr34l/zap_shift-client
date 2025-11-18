@@ -27,27 +27,33 @@ body {
 }
 
 /*//* COMMON STYLES */
-h1,h2,h3,h4,h5,h6 {
-  @apply text-primary
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-primary;
 }
 
-p, a {
-  @apply text-secondary
+p,
+a {
+  @apply text-secondary;
 }
 
 a {
-  @apply hover:text-primary-content hover:bg-transparent
+  @apply hover:text-primary-content hover:bg-transparent;
 }
 
 .btn-white {
-  @apply py-6 text-[16px] font-bold bg-white  border-secondary shadow-none rounded-xl transition-all duration-300 ease-linear hover:text-primary-content hover:bg-accent hover:border-accent
+  @apply py-6 text-[16px] font-bold bg-white  border-secondary shadow-none rounded-xl transition-all duration-300 ease-linear hover:text-primary-content hover:bg-accent hover:border-accent;
 }
 .btn-accent {
-  @apply py-6 text-[16px] font-bold bg-accent text-primary-content border-accent shadow-none rounded-xl transition-colors duration-300 ease-linear hover:text-secondary hover:bg-white
+  @apply py-6 text-[16px] font-bold bg-accent text-primary-content border-accent shadow-none rounded-xl transition-colors duration-300 ease-linear hover:text-secondary hover:bg-white;
 }
 
 .active {
-  @apply font-medium text-primary bg-accent rounded-full duration-75
+  @apply font-medium text-primary bg-accent rounded-full hover:bg-accent!;
 }
 
 /*//* FOOTER */

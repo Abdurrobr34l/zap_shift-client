@@ -67,14 +67,14 @@ const Header = () => {
       {/* RIGHT: Buttons */}
       <div className="navbar-end flex items-center gap-3">
         <Link
-          to="/signin"
+          to="/login"
           className="btn btn-sm btn-white bg-base-100 border-base-300 text-base-content hover:bg-base-200"
         >
           Sign In
         </Link>
 
         <Link
-          to="/signup"
+          to="/register"
           className="btn btn-sm btn-accent text-base-100 px-5"
         >
           Sign Up

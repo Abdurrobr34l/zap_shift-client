@@ -4,6 +4,9 @@ import { Component } from "react";
 import Home from "../Pages/Home";
 import ErrorPage from "../Pages/ErrorPage";
 import Coverage from "../Pages/Coverage/Coverage";
+import AuthLayout from "../Layout/AuthLayout";
+import Login from "../Pages/AuthPages/Login";
+import Register from "../Pages/AuthPages/Register";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +25,21 @@ export const router = createBrowserRouter([
       {
         path: "*",
         Component: ErrorPage
+      }
+    ]
+  },
+
+  {
+    path: "/",
+    Component: AuthLayout,
+    children: [
+      {
+        path: "/login",
+        Component: Login
+      },
+      {
+        path: "/register",
+        Component: Register
       }
     ]
   }

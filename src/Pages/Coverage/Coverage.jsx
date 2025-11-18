@@ -6,6 +6,7 @@ import { useLoaderData } from 'react-router';
 const Coverage = () => {
     const position = [23.6850, 90.3563]; // Coordinates of Bangladesh
     const serviceCenters = useLoaderData();
+    console.log(serviceCenters);
     const mapRef = useRef(null);
 
     const handleSearch = (e) => {
@@ -26,7 +27,7 @@ const Coverage = () => {
             <div className="container mx-auto">
                 <div className="text-justify mb-6">
                     <h2 className="text-4xl font-bold text-primary mb-4 lg:text-5xl xl:text-[56px] ">
-                        We are available in 64 districts
+                        We are available in <span className='text-accent'>{serviceCenters.length}</span> districts
                     </h2>
                     <form onSubmit={handleSearch} className="relative max-w-md my-5 md:my-10 lg:my-[50px]">
                         <input

@@ -6,14 +6,19 @@ import Container from '../utilities/Container';
 
 const AuthLayout = () => {
   return (
-    <div className='flex items-center'>
-      <div className='flex-1 pt-5 pl-5 h-screen bg-white lg:pt-10 lg:pl-10'>
+    <div className='lg:relative'>
+      <div className='pt-5 pl-5 lg:absolute lg:pt-10 lg:pl-10'>
         <Logo></Logo>
-        <Outlet></Outlet>
       </div>
 
-      <div className='flex-1 h-screen flex items-center justify-center'>
-        <img src={authImage} alt="It is an image of delivery men"/>
+      <div className='flex flex-col-reverse items-center lg:flex-row'>
+        <div className='flex-1 pt-5 pl-5 h-screen w-full bg-white lg:pt-40 lg:pl-10'>
+          <Outlet></Outlet>
+        </div>
+
+        <div className='flex-1 h-screen flex items-center justify-center'>
+          <img src={authImage} alt="It is an image of delivery men" />
+        </div>
       </div>
     </div>
   );

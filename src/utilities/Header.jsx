@@ -43,7 +43,7 @@ const Header = () => {
           >
             {navLinks.map((link) => (
               <li key={link.id}>
-                <NavLink to={link.path}>{link.name}</NavLink>
+                <NavLink to={link.path} className={({ isActive }) => (isActive ? "active" : "")}>{link.name}</NavLink>
               </li>
             ))}
           </ul>
@@ -58,7 +58,7 @@ const Header = () => {
         <ul className="menu menu-horizontal text-base font-medium gap-2">
           {navLinks.map((link) => (
             <li key={link.id}>
-              <Link to={link.path}>{link.name}</Link>
+              <NavLink to={link.path}  className={({ isActive }) => (isActive ? "active" : "")}>{link.name}</NavLink>
             </li>
           ))}
         </ul>

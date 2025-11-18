@@ -46,6 +46,10 @@ a {
   @apply py-6 text-[16px] font-bold bg-accent text-primary-content border-accent shadow-none rounded-xl transition-colors duration-300 ease-linear hover:text-secondary hover:bg-white
 }
 
+.active {
+  @apply font-medium text-primary bg-accent rounded-full duration-75
+}
+
 /*//* FOOTER */
 .footer-logo span {
   @apply text-white;

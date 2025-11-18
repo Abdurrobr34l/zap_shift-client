@@ -1,6 +1,6 @@
 import React, { use } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, EffectCoverflow, Autoplay } from "swiper/modules";
 import ReviewCard from "./ReviewCard";
 
 import "swiper/css";
@@ -12,7 +12,7 @@ const Reviews = ({ reviewsPromise }) => {
   const reviews = use(reviewsPromise);
 
   return (
-    <div className="py-10 mt-10">
+    <div>
       {/* Section Title */}
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-extrabold text-primary">
@@ -28,11 +28,11 @@ const Reviews = ({ reviewsPromise }) => {
         effect={'coverflow'}
         grabCursor={true}
         coverflowEffect={{
-          rotate: 30,
-          stretch: '50%',
+          rotate: 0,
+          stretch: '30%',
           depth: 200,
           modifier: 1,
-          scale: 0.75,
+          scale: 0.85,
           slideShadows: true,
         }}
         autoplay={{
@@ -52,7 +52,7 @@ const Reviews = ({ reviewsPromise }) => {
           768: { slidesPerView: 1.5 },
           1024: { slidesPerView: 3 },
         }}
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Pagination, EffectCoverflow, Autoplay]}
         className="pb-16"
       >
         {reviews.map((rev) => (

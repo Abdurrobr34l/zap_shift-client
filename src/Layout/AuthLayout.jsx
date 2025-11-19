@@ -2,7 +2,6 @@ import React from 'react';
 import authImage from '../assets/authImage.png';
 import Logo from '../../Components/Logo';
 import { Outlet } from 'react-router';
-// import Container from '../utilities/Container';
 
 const AuthLayout = () => {
   return (
@@ -12,11 +11,11 @@ const AuthLayout = () => {
       </div>
 
       <div className='flex flex-col-reverse items-center lg:flex-row'>
-        <div className='flex-1 pt-5 pl-5 h-screen w-full bg-white lg:pt-36 lg:pl-10'>
+        <div className='flex-1 pt-5 px-5 w-full bg-white md:pt-10 lg:pt-36 lg:pl-10'>
           <Outlet></Outlet>
         </div>
 
-        <div className='flex-1 h-screen flex items-center justify-center'>
+        <div className='flex-1 flex items-center justify-center md:mb-5 lg:mb-0'>
           <img src={authImage} alt="It is an image of delivery men" />
         </div>
       </div>

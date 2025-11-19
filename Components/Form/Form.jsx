@@ -1,15 +1,18 @@
 import React from "react";
 import InputField from "./InputField";
+import { useForm } from "react-hook-form";
 
-const Form = ({ title, paragraph, fields, buttons }) => {
+const Form = ({ title, paragraph, fields, buttons, onSubmit }) => {
+  const { register, handleSubmit  } = useForm();
+
   return (
     <div className="max-w-md mx-auto p-6 border rounded shadow">
       <h2 className="text-2xl font-bold mb-2">{title}</h2>
       <p className="mb-4">{paragraph}</p>
 
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {fields.map((field, index) => (
-          <InputField key={index} {...field} />
+          <InputField key={index} {...field} register={register}/>
         ))}
 
         <div className="flex flex-col gap-2 mt-4">

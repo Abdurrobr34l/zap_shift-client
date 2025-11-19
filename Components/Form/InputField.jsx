@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputField = ({ label, type = "text", name, placeholder }) => {
+const InputField = ({ label, type = "text", name, placeholder, register }) => {
   return (
     <div className="mb-4">
       <label className="block mb-1">{label}</label>
@@ -9,6 +9,7 @@ const InputField = ({ label, type = "text", name, placeholder }) => {
         name={name}
         placeholder={placeholder}
         className="border p-2 w-full rounded"
+        {...(register && name ? register(name) : {})}
       />
     </div>
   );

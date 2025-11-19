@@ -12,8 +12,12 @@ const LoginPage = () => {
     { label: "Login with Google", type: "button", className: "bg-red-500 text-white p-2 rounded" },
   ];
 
+  const handleLogin = (data) => {
+  console.log(data);
+};
+
   return (
-    <Form title="Please Login" paragraph="Welcome back! Enter your details to login." fields={fields} buttons={buttons}></Form>
+    <Form onSubmit={handleLogin} title="Please Login" paragraph="Welcome back! Enter your details to login." fields={fields} buttons={buttons}></Form>
   );
 };
 

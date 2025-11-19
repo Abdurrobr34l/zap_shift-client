@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 
 const RegisterPage = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
   const handleRegister = (data) => {
     console.log(data);
+    reset()
   };
 
   return (
@@ -24,7 +25,7 @@ const RegisterPage = () => {
             className="border border-secondary-content p-2 w-full rounded"
             {...register("name", { required: "Name is required" })}
           />
-          {errors.name && <p className="text-error text-sm mt-1">{errors.name.message}</p>}
+          {errors.name && <p className="text-error! text-sm mt-1">{errors.name.message}</p>}
         </div>
 
         {/* Email */}
@@ -36,7 +37,7 @@ const RegisterPage = () => {
             className="border border-secondary-content p-2 w-full rounded"
             {...register("email", { required: "Email is required" })}
           />
-          {errors.email && <p className="text-error text-sm mt-1">{errors.email.message}</p>}
+          {errors.email && <p className="text-error! text-sm mt-1">{errors.email.message}</p>}
         </div>
 
         {/* Password */}
@@ -48,10 +49,12 @@ const RegisterPage = () => {
             className="border border-secondary-content p-2 w-full rounded"
             {...register("password", {
               required: "Password is required",
-              minLength: { value: 6, message: "Minimum 6 characters" }
+              minLength: { value: 6, message: "Minimum 6 characters" },
+              pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/,
             })}
-          />
-          {errors.password && <p className="text-error text-sm mt-1">{errors.password.message}</p>}
+            />
+            {errors.password?.type==="pattern" && <p className="text-error! text-sm mt-1">Password must have atleast 1 Uppercase, lowercase, number and special character</p>}
+          {errors.password && <p className="text-error! text-sm mt-1">{errors.password.message}</p>}
         </div>
 
         {/* Confirm Password */}

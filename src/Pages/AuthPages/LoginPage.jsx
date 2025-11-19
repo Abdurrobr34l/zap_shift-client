@@ -10,7 +10,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto h-screen">
       <h2 className="text-2xl font-extrabold mb-2 md:text-5xl">Please Login</h2>
       <p className="mb-4 text-primary-content!">Welcome back! Enter your details to login.</p>
 

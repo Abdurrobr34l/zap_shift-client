@@ -3,12 +3,12 @@ import { AuthContext } from './AuthContext';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase.init';
 
-const AuthProvider = ({ Children }) => {
+const AuthProvider = ({ children }) => {
 
   //* REGISTER  USERS
   const registerUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
-  }  
+  }
   //* LOGIN  USERS
   const signInUser = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
@@ -16,11 +16,11 @@ const AuthProvider = ({ Children }) => {
 
   const authInfo = {
     registerUser, signInUser
-  }
+  };
 
   return (
     <AuthContext value={authInfo}>
-      {Children}
+      {children}
     </AuthContext>
   );
 };

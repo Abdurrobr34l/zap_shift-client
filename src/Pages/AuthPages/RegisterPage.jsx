@@ -1,13 +1,26 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import useAuth from "../../Hooks/useAuth";
 
 const RegisterPage = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const { registerUser } = useAuth()
 
   const handleRegister = (data) => {
-    console.log(data);
+    // console.log(data);
     reset()
+    registerUser(data.email, data.password)
+    .then(result => {
+      console.log(result.user);
+    })
+    .catch(err => {
+      // console.log(err);
+      if (err.code === "auth/email-already-in-use") {
+        alert("User already exists");
+        
+      }
+    })
   };
 
   return (
@@ -52,8 +65,8 @@ const RegisterPage = () => {
               minLength: { value: 6, message: "Minimum 6 characters" },
               pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/,
             })}
-            />
-            {errors.password?.type==="pattern" && <p className="text-error! text-sm mt-1">Password must have atleast 1 Uppercase, lowercase, number and special character</p>}
+          />
+          {errors.password?.type === "pattern" && <p className="text-error! text-sm mt-1">Password must have atleast 1 Uppercase, lowercase, number and special character</p>}
           {errors.password && <p className="text-error! text-sm mt-1">{errors.password.message}</p>}
         </div>
 

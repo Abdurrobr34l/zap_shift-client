@@ -25,9 +25,9 @@ const Brands = () => {
   return (
     <div className="w-full py-6 bg-transparent overflow-hidden">
 
-<div>
-  <h2 className="font-extrabold text-[32px] text-center">We've helped thousands of sales teams</h2>
-</div>
+      <div>
+        <h2 className="font-extrabold text-[32px] text-center">We've helped thousands of sales teams</h2>
+      </div>
 
       <Swiper
         modules={[Autoplay]}
@@ -40,8 +40,10 @@ const Brands = () => {
           delay: 0,
           disableOnInteraction: false,
         }}
-        freeMode={true}
-        freeModeMomentum={false}
+        freeMode={{
+          enabled: true,
+          momentum: false,
+        }}
         className="mySwiper flex items-center mt-5 lg:mt-10"
         breakpoints={{
           480: { slidesPerView: 3 },

@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 import Logo from "../../Components/Logo";
 import { FaArrowRight } from "react-icons/fa";
+import useAuth from "../Hooks/useAuth";
 
 const navLinks = [
   { id: 1, name: "Services", path: "/services" },
@@ -13,6 +14,8 @@ const navLinks = [
 ];
 
 const Header = () => {
+  const { user, logOut } = useAuth();
+
   return (
     <div className="navbar bg-white rounded-2xl lg:px-10">
       {/* LEFT: Logo */}
@@ -50,7 +53,7 @@ const Header = () => {
         </div>
 
         {/* Logo */}
-       <Logo></Logo>
+        <Logo></Logo>
       </div>
 
       {/* CENTER: Desktop Navigation */}
@@ -58,7 +61,7 @@ const Header = () => {
         <ul className="menu menu-horizontal text-base font-medium gap-2">
           {navLinks.map((link) => (
             <li key={link.id}>
-              <NavLink to={link.path}  className={({ isActive }) => (isActive ? "active" : "")}>{link.name}</NavLink>
+              <NavLink to={link.path} className={({ isActive }) => (isActive ? "active" : "")}>{link.name}</NavLink>
             </li>
           ))}
         </ul>
@@ -66,22 +69,34 @@ const Header = () => {
 
       {/* RIGHT: Buttons */}
       <div className="navbar-end flex items-center gap-3">
-        <Link
-          to="/login"
-          className="btn btn-sm btn-white bg-base-100 border-base-300 text-base-content hover:bg-base-200"
-        >
-          Sign In
-        </Link>
+        {
+          user ? (
+            <Link
+              onClick={logOut}
+              className="btn btn-sm btn-white bg-base-100 border-base-300 text-base-content hover:bg-base-200"
+            >
+              LogOut
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="btn btn-sm btn-white bg-base-100 border-base-300 text-base-content hover:bg-base-200"
+            >
+              Sign In
+            </Link>
+          )
+        }
 
         <Link
-          to="/register"
+          onClick={logOut}
           className="btn btn-sm btn-accent text-base-100 px-5"
         >
-          Sign Up
+          Be a rider
         </Link>
 
+
         <button className="btn btn-lg btn-circle bg-primary-content group">
-         <FaArrowRight className="text-xl  text-accent transition-transform duration-300 group-hover:text-white group-hover:-rotate-14" />
+          <FaArrowRight className="text-xl  text-accent transition-transform duration-300 group-hover:text-white group-hover:-rotate-14" />
         </button>
       </div>
     </div>

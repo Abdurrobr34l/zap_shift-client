@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
+import GoogleButton from "./GoogleButton";
 
 const LoginPage = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -74,7 +75,7 @@ const LoginPage = () => {
 
           <p className="text-center">Or</p>
 
-          <button type="button" className="bg-primary text-white p-2 rounded cursor-pointer hover:bg-primary/80">Login with Google</button>
+          <GoogleButton btnName={"Login"}></GoogleButton>
         </div>
       </form>
     </div>

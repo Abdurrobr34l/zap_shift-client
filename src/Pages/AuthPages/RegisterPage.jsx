@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
+import GoogleButton from "./GoogleButton";
 
 const RegisterPage = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -98,7 +99,7 @@ const RegisterPage = () => {
 
           <p className="text-center">Or</p>
 
-          <button type="button" className="bg-primary text-white p-2 rounded cursor-pointer hover:bg-primary/80">Register with Google</button>
+          <GoogleButton btnName={"Register"}></GoogleButton>
         </div>
       </form>
     </div>

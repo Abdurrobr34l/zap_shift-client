@@ -1,12 +1,30 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import useAuth from "../../Hooks/useAuth";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const { signInUser } = useAuth();
+  const navigate = useNavigate()
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleLogin = (data) => {
-    console.log(data);
+    // console.log(data);
+    signInUser(data.email, data.password)
+      .then(result => {
+        console.log(result.user);
+        toast.success("Login successful!");
+        navigate(from, { replace: true });
+        reset()
+      })
+      .catch(err => {
+        if (err.code === "auth/invalid-credential") {
+          toast.error("Invalid email/password");
+        }
+      })
   };
 
   return (
@@ -24,7 +42,7 @@ const LoginPage = () => {
             className="border border-secondary-content p-2 w-full rounded"
             {...register("email", { required: "Email is required" })}
           />
-          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+          {errors.email && <p className="text-error! text-sm mt-1">{errors.email.message}</p>}
         </div>
 
         {/* Password */}
@@ -39,24 +57,24 @@ const LoginPage = () => {
               minLength: { value: 6, message: "Minimum 6 characters" }
             })}
           />
-          {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+          {errors.password && <p className="text-error! text-sm mt-1">{errors.password.message}</p>}
         </div>
 
-          {/* Link to register */}
-          <p className="mt-4">
-            Don’t have an account? 
-            <Link to="/register" className="ml-1 text-accent! underline">
-               Register
-            </Link>
-          </p>
+        {/* Link to register */}
+        <p className="mt-4">
+          New to ZapShift?
+          <Link to="/register" className="ml-1 text-accent! underline">
+            Register
+          </Link>
+        </p>
 
         {/* Buttons */}
         <div className="flex flex-col gap-1 mt-6">
-          <button type="submit" className="bg-accent text-white p-2 rounded">Register</button>
+          <button type="submit" className="bg-accent text-white p-2 rounded cursor-pointer hover:bg-accent/80">Login</button>
 
           <p className="text-center">Or</p>
 
-          <button type="button" className="bg-primary text-white p-2 rounded">Register with Google</button>
+          <button type="button" className="bg-primary text-white p-2 rounded cursor-pointer hover:bg-primary/80">Login with Google</button>
         </div>
       </form>
     </div>

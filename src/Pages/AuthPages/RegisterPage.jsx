@@ -1,11 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const { registerUser } = useAuth()
+  const navigate = useNavigate();
 
   const handleRegister = (data) => {
     // console.log(data);
@@ -13,12 +15,12 @@ const RegisterPage = () => {
     registerUser(data.email, data.password)
     .then(result => {
       console.log(result.user);
+      navigate("/login")
     })
     .catch(err => {
       // console.log(err);
       if (err.code === "auth/email-already-in-use") {
-        alert("User already exists");
-        
+        toast.error("User already exists");
       }
     })
   };
@@ -92,11 +94,11 @@ const RegisterPage = () => {
 
         {/* Buttons */}
         <div className="flex flex-col gap-1 mt-6">
-          <button type="submit" className="bg-accent text-white p-2 rounded">Register</button>
+          <button type="submit" className="bg-accent text-white p-2 rounded cursor-pointer hover:bg-accent/80">Register</button>
 
           <p className="text-center">Or</p>
 
-          <button type="button" className="bg-primary text-white p-2 rounded">Register with Google</button>
+          <button type="button" className="bg-primary text-white p-2 rounded cursor-pointer hover:bg-primary/80">Register with Google</button>
         </div>
       </form>
     </div>

@@ -7,6 +7,7 @@ import Coverage from "../Pages/Coverage/Coverage";
 import AuthLayout from "../Layout/AuthLayout";
 import LoginPage from "../Pages/AuthPages/LoginPage";
 import RegisterPage from "../Pages/AuthPages/RegisterPage";
+import BeARider from "../Pages/BeARider";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
         path: "/coverage",
         Component: Coverage,
         loader: () => fetch('/serviceCenters.json').then(res => res.json())
+      },
+      {
+        path: "/rider-apply",
+        Component: BeARider
       },
       {
         path: "*",

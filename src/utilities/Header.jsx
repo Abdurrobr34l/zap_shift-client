@@ -54,6 +54,7 @@ const Header = () => {
 
         {/* Logo */}
         <Logo></Logo>
+        {/* <span>{user?.email}</span> */}
       </div>
 
       {/* CENTER: Desktop Navigation */}
@@ -88,16 +89,16 @@ const Header = () => {
         }
 
         <Link
-          onClick={logOut}
+          to={"/rider-apply"}
           className="btn btn-sm btn-accent text-base-100 px-5"
         >
           Be a rider
         </Link>
 
 
-        <button className="btn btn-lg btn-circle bg-primary-content group">
-          <FaArrowRight className="text-xl  text-accent transition-transform duration-300 group-hover:text-white group-hover:-rotate-14" />
-        </button>
+        <Link to={"/rider-apply"} className="btn btn-lg btn-circle bg-primary-content! group">
+          <FaArrowRight className="text-xl  text-accent transition-transform duration-300 group-hover:text-white! group-hover:-rotate-14" />
+        </Link>
       </div>
     </div>
   );

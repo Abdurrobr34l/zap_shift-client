@@ -9,8 +9,8 @@ const navLinks = [
   { id: 2, name: "Coverage", path: "/coverage" },
   { id: 3, name: "About Us", path: "/about" },
   { id: 4, name: "Pricing", path: "/pricing" },
-  { id: 5, name: "Blog", path: "/blog" },
-  { id: 6, name: "Contact", path: "/contact" },
+  { id: 5, name: "Send Parcel", path: "/send-parcel" },
+  { id: 6, name: "Be a Rider", path: "/rider-apply" },
 ];
 
 const Header = () => {

@@ -8,6 +8,7 @@ import AuthLayout from "../Layout/AuthLayout";
 import LoginPage from "../Pages/AuthPages/LoginPage";
 import RegisterPage from "../Pages/AuthPages/RegisterPage";
 import BeARider from "../Pages/BeARider";
+import PrivateRoutes from "./PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,10 @@ export const router = createBrowserRouter([
       },
       {
         path: "/rider-apply",
-        Component: BeARider
+        element:
+          <PrivateRoutes>
+            <BeARider></BeARider>
+          </PrivateRoutes>
       },
       {
         path: "*",

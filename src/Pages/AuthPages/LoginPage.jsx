@@ -10,7 +10,7 @@ const LoginPage = () => {
   const { signInUser } = useAuth();
   const navigate = useNavigate()
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state || "/";
 
   const handleLogin = (data) => {
     // console.log(data);
@@ -18,7 +18,7 @@ const LoginPage = () => {
       .then(result => {
         console.log(result.user);
         toast.success("Login successful!");
-        navigate(from, { replace: true });
+        navigate(from);
         reset()
       })
       .catch(err => {

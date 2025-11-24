@@ -1,20 +1,33 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
+import { useLoaderData } from "react-router";
 
 const SendParcel = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
+  const serviceCenters = useLoaderData();
+  const senderRegion = useWatch({ control, name: "sender_region" });
+  const reciverRegion = useWatch({ control, name: "receiver_region" });
 
-  const onSubmit = (data) => {
+  // Unique Regions
+  const regions = [...new Set(serviceCenters.map(r => r.region))];
+
+  // Districts by Region
+  const districtsByRegion = (region) => {
+    const regionDistricts = serviceCenters.filter(sc => sc.region === region);
+    return regionDistricts.map(d => d.district);
+  }
+
+  const handleSendParcel = (data) => {
     console.log("Form Submitted:", data);
+    reset();
   };
 
   return (
     <div className="p-6 bg-white rounded-4xl lg:p-12 xl:p-20">
-      {/* Title */}
-      <h1 className="text-4xl font-bold text-primary mb-6">Send A Parcel</h1>
-      <h2 className="text-lg font-semibold text-primary mb-4">
+      <h2 className="text-4xl font-bold text-primary mb-6">Send A Parcel</h2>
+      <h3 className="text-lg font-semibold text-primary mb-4">
         Enter your parcel details
-      </h2>
+      </h3>
 
       {/* Toggle */}
       <div className="flex items-center gap-6 pb-6 mb-10 border-b border-secondary-content">
@@ -41,25 +54,28 @@ const SendParcel = () => {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+      <form onSubmit={handleSubmit(handleSendParcel)} className="space-y-10">
 
         {/* Parcel Details */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-10` border-b border-secondary-content">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-10 border-b border-secondary-content">
           <div>
             <label className="text-sm font-semibold text-primary">Parcel Name</label>
             <input
               type="text"
-              {...register("parcel_name")}
+              {...register("parcel_name", { required: "Please fill the input" })}
               className="input input-bordered w-full mt-1"
               placeholder="Parcel Name"
             />
+            {errors.parcel_name && (
+              <p className="text-error text-sm mt-1">{errors.parcel_name.message}</p>
+            )}
           </div>
 
           <div>
             <label className="text-sm font-semibold text-primary">Parcel Weight (KG)</label>
             <input
               type="number"
-              {...register("parcel_weight")}
+              {...register("parcel_weight", { required: "Please fill the input" })}
               className="input input-bordered w-full mt-1"
               placeholder="Parcel Weight (KG)"
             />
@@ -78,7 +94,7 @@ const SendParcel = () => {
                 <label className="text-sm font-semibold text-primary">Sender Name</label>
                 <input
                   type="text"
-                  {...register("sender_name")}
+                  {...register("sender_name", { required: "Please fill the input" })}
                   className="input input-bordered w-full mt-1"
                   placeholder="Sender Name"
                 />
@@ -88,7 +104,7 @@ const SendParcel = () => {
                 <label className="text-sm font-semibold text-primary">Address</label>
                 <input
                   type="text"
-                  {...register("sender_address")}
+                  {...register("sender_address", { required: "Please fill the input" })}
                   className="input input-bordered w-full mt-1"
                   placeholder="Address"
                 />
@@ -98,28 +114,42 @@ const SendParcel = () => {
                 <label className="text-sm font-semibold text-primary">Sender Phone No</label>
                 <input
                   type="text"
-                  {...register("sender_phone")}
+                  {...register("sender_phone", { required: "Please fill the input" })}
                   className="input input-bordered w-full mt-1"
-                  placeholder="Sender Phone No"
+                  placeholder="Phone No"
                 />
+              </div>
+
+              <div>
+                <label className="text-sm font-semibold text-primary">Your Region</label>
+                <select
+                  {...register("sender_region", { required: "Please fill the input" })}
+                  className="select select-bordered w-full mt-1"
+                >
+                  <option>Select your Region</option>
+                  {regions.map((region, index) => (
+                    <option key={index} value={region}>{region}</option>
+                  ))}
+                </select>
               </div>
 
               <div>
                 <label className="text-sm font-semibold text-primary">Your District</label>
                 <select
-                  {...register("sender_district")}
+                  {...register("sender_district", { required: "Please fill the input" })}
                   className="select select-bordered w-full mt-1"
                 >
                   <option>Select your District</option>
-                  <option>District 1</option>
-                  <option>District 2</option>
+                  {districtsByRegion(senderRegion || "").map((district, index) => (
+                    <option key={index} value={district}>{district}</option>
+                  ))}
                 </select>
               </div>
 
               <div>
                 <label className="text-sm font-semibold text-primary">Pickup Instruction</label>
                 <textarea
-                  {...register("pickup_instruction")}
+                  {...register("pickup_instruction", { required: "Please fill the input" })}
                   className="textarea textarea-bordered w-full mt-1"
                   rows={2}
                   placeholder="Pickup Instruction"
@@ -137,9 +167,9 @@ const SendParcel = () => {
                 <label className="text-sm font-semibold text-primary">Receiver Name</label>
                 <input
                   type="text"
-                  {...register("receiver_name")}
+                  {...register("receiver_name", { required: "Please fill the input" })}
                   className="input input-bordered w-full mt-1"
-                  placeholder="Sender Name"
+                  placeholder="Receiver Name"
                 />
               </div>
 
@@ -147,7 +177,7 @@ const SendParcel = () => {
                 <label className="text-sm font-semibold text-primary">Receiver Address</label>
                 <input
                   type="text"
-                  {...register("receiver_address")}
+                  {...register("receiver_address", { required: "Please fill the input" })}
                   className="input input-bordered w-full mt-1"
                   placeholder="Address"
                 />
@@ -157,28 +187,44 @@ const SendParcel = () => {
                 <label className="text-sm font-semibold text-primary">Receiver Contact No</label>
                 <input
                   type="text"
-                  {...register("receiver_phone")}
+                  {...register("receiver_phone", { required: "Please fill the input" })}
                   className="input input-bordered w-full mt-1"
-                  placeholder="Sender Contact No"
+                  placeholder="Contact No"
                 />
               </div>
 
+              {/* Region */}
+              <div>
+                <label className="text-sm font-semibold text-primary">Receiver Region</label>
+                <select
+                  {...register("receiver_region", { required: "Please fill the input" })}
+                  className="select select-bordered w-full mt-1"
+                >
+                  <option>Select District</option>
+                  {regions.map((region, index) => (
+                    <option key={index} value={region}>{region}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Districts */}
               <div>
                 <label className="text-sm font-semibold text-primary">Receiver District</label>
                 <select
-                  {...register("receiver_district")}
+                  {...register("receiver_district", { required: "Please fill the input" })}
                   className="select select-bordered w-full mt-1"
                 >
-                  <option>Select your District</option>
-                  <option>District 1</option>
-                  <option>District 2</option>
+                  <option>Select District</option>
+                  {districtsByRegion(reciverRegion || "").map((district, index) => (
+                    <option key={index} value={district}>{district}</option>
+                  ))}
                 </select>
               </div>
 
               <div>
                 <label className="text-sm font-semibold text-primary">Delivery Instruction</label>
                 <textarea
-                  {...register("delivery_instruction")}
+                  {...register("delivery_instruction", { required: "Please fill the input" })}
                   className="textarea textarea-bordered w-full mt-1"
                   rows={2}
                   placeholder="Delivery Instruction"
@@ -192,7 +238,6 @@ const SendParcel = () => {
           * Pickup Time 4pm–7pm Approx.
         </p>
 
-        {/* Button */}
         <button className="btn btn-accent px-10">
           Proceed to Confirm Booking
         </button>

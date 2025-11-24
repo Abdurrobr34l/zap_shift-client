@@ -12,6 +12,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import SendParcel from "../Pages/SendParcel";
 
 export const router = createBrowserRouter([
+  //* HOMEPAGE ROUTES
   {
     path: "/",
     Component: MainLayout,
@@ -30,7 +31,8 @@ export const router = createBrowserRouter([
         element:
           <PrivateRoutes>
             <SendParcel></SendParcel>
-          </PrivateRoutes>
+          </PrivateRoutes>,
+        loader: () => fetch('/serviceCenters.json').then(res => res.json())
       },
       {
         path: "/rider-apply",
@@ -46,6 +48,7 @@ export const router = createBrowserRouter([
     ]
   },
 
+  //* AUTHENTICATION ROUTES
   {
     path: "/",
     Component: AuthLayout,

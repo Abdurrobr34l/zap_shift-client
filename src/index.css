@@ -60,3 +60,8 @@ a {
 .footer-logo span {
   @apply text-white;
 }
+
+/*//* SEND PARCEL SWEET ALERT CUSTOM STYLE */
+.swal2-confirm {
+   @apply bg-primary hover:bg-primary-content; 
+}

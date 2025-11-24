@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
 
 const SendParcel = () => {
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
@@ -38,9 +39,27 @@ const SendParcel = () => {
         cost = minCharge + extraCharge
       }
     }
-    console.log("The cost is: ",cost);
+    // console.log("The cost is: ", cost);
 
-    reset();
+    Swal.fire({
+      title: "Please confirm the cost",
+       html: `You charge is: <b>${cost}৳</b>`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#03373d",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, take it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Successful!",
+          text: "Your purchase has been confirmed.",
+          icon: "success"
+        });
+        reset();
+      }
+    });
+
   };
 
   return (

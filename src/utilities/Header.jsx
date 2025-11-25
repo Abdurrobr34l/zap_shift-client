@@ -10,11 +10,13 @@ const navLinks = [
   { id: 3, name: "About Us", path: "/about" },
   { id: 4, name: "Pricing", path: "/pricing" },
   { id: 5, name: "Send Parcel", path: "/send-parcel" },
-  { id: 6, name: "Be a Rider", path: "/rider-apply" },
+  { id: 6, name: "Be a Rider", path: "/rider-apply" }
+  // { id: 7, name: "Dashboard", path: "/dashboard" }
 ];
 
 const Header = () => {
   const { user, logOut } = useAuth();
+  console.log("USER:", user);
 
   return (
     <div className="navbar bg-white rounded-2xl lg:px-10">
@@ -44,11 +46,18 @@ const Header = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box shadow-lg mt-3 w-52 p-2 z-50"
           >
-            {navLinks.map((link) => (
-              <li key={link.id}>
-                <NavLink to={link.path} className={({ isActive }) => (isActive ? "active" : "")}>{link.name}</NavLink>
+            {
+              navLinks.map((link) => (
+                <li key={link.id}>
+                  <NavLink to={link.path} className={({ isActive }) => (isActive ? "active" : "")}>{link.name}</NavLink>
+                </li>
+              ))
+            }
+            {user && (
+              <li>
+                <NavLink to="/dashboard">Dashboard</NavLink>
               </li>
-            ))}
+            )}
           </ul>
         </div>
 
@@ -65,6 +74,11 @@ const Header = () => {
               <NavLink to={link.path} className={({ isActive }) => (isActive ? "active" : "")}>{link.name}</NavLink>
             </li>
           ))}
+          {user && (
+            <li>
+              <NavLink to="/dashboard">Dashboard</NavLink>
+            </li>
+          )}
         </ul>
       </div>
 

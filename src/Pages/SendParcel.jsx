@@ -2,9 +2,14 @@ import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import useAxios from "../Hooks/useAxios";
+import useAuth from "../Hooks/useAuth";
 
 const SendParcel = () => {
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
+  const {user} = useAuth()
+  const axiosSecure = useAxios();
+  
   const serviceCenters = useLoaderData();
   const senderRegion = useWatch({ control, name: "sender_region" });
   const reciverRegion = useWatch({ control, name: "receiver_region" });
@@ -43,7 +48,7 @@ const SendParcel = () => {
 
     Swal.fire({
       title: "Please confirm the cost",
-       html: `You charge is: <b>${cost}৳</b>`,
+      html: `You charge is: <b>${cost}৳</b>`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#03373d",
@@ -51,6 +56,12 @@ const SendParcel = () => {
       confirmButtonText: "Yes, take it!"
     }).then((result) => {
       if (result.isConfirmed) {
+        //* Save parcel info in the DB
+        axiosSecure.post("/parcels", data)
+          .then(res => {
+            console.log("After cost confirmed", res.data);
+          })
+
         Swal.fire({
           title: "Successful!",
           text: "Your purchase has been confirmed.",
@@ -141,12 +152,13 @@ const SendParcel = () => {
               </div>
 
               <div>
-                <label className="text-sm font-semibold text-primary">Address</label>
+                <label className="text-sm font-semibold text-primary">Email Address</label>
                 <input
-                  type="text"
-                  {...register("sender_address", { required: "Please fill the input" })}
+                  type="email"
+                  {...register("sender_email", { required: "Please fill the input" })}
+                  value={user?.email}
                   className="input input-bordered w-full mt-1"
-                  placeholder="Address"
+                  placeholder="Your Email Address"
                 />
               </div>
 
@@ -214,12 +226,12 @@ const SendParcel = () => {
               </div>
 
               <div>
-                <label className="text-sm font-semibold text-primary">Receiver Address</label>
+                <label className="text-sm font-semibold text-primary">Receiver Email Address</label>
                 <input
-                  type="text"
-                  {...register("receiver_address", { required: "Please fill the input" })}
+                  type="email"
+                  {...register("receiver_email", { required: "Please fill the input" })}
                   className="input input-bordered w-full mt-1"
-                  placeholder="Address"
+                  placeholder="Receiver Email Address"
                 />
               </div>
 

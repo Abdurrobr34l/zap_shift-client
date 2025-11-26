@@ -7,9 +7,9 @@ import useAuth from "../Hooks/useAuth";
 
 const SendParcel = () => {
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
-  const {user} = useAuth()
+  const { user } = useAuth()
   const axiosSecure = useAxios();
-  
+
   const serviceCenters = useLoaderData();
   const senderRegion = useWatch({ control, name: "sender_region" });
   const reciverRegion = useWatch({ control, name: "receiver_region" });
@@ -45,6 +45,7 @@ const SendParcel = () => {
       }
     }
     // console.log("The cost is: ", cost);
+    data.cost = cost
 
     Swal.fire({
       title: "Please confirm the cost",

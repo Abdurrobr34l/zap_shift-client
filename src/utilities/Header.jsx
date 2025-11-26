@@ -16,7 +16,7 @@ const navLinks = [
 
 const Header = () => {
   const { user, logOut } = useAuth();
-  console.log("USER:", user);
+  // console.log("USER:", user);
 
   return (
     <div className="navbar bg-white rounded-2xl lg:px-10">

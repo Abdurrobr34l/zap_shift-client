@@ -5,6 +5,7 @@ import useAxiosSecure from '../../Hooks/useAxios';
 import { FaMagnifyingGlass, FaTrashCan } from 'react-icons/fa6';
 import { FiEdit } from 'react-icons/fi';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const MyParcels = () => {
   const { user } = useAuth()
@@ -25,8 +26,9 @@ const MyParcels = () => {
     { id: 2, name: "Parcel Name" },
     { id: 3, name: "Sender Email" },
     { id: 4, name: "Total Cost" },
-    { id: 5, name: "Status" },
-    { id: 6, name: "Actions" },
+    { id: 5, name: "Payment" },
+    { id: 6, name: "Delivery Status" },
+    { id: 7, name: "Actions" },
   ];
 
   //* Delete Parcel
@@ -82,10 +84,33 @@ const MyParcels = () => {
               data?.map((parcel, index) => (
                 <tr key={parcel._id}>
                   <th>{index + 1}</th>
+                  {/* Name */}
                   <td>{parcel.parcel_name}</td>
+                  {/* Email */}
                   <td>{parcel.sender_email}</td>
-                  <td>{parcel.status}</td>
+                  {/* Cost */}
                   <td>{parcel.cost} ৳</td>
+                  {/* Payment */}
+                  <td className='flex gap-1 font-semibold'>
+                    {
+                      parcel.parcel_payment ?
+                        <p className='text-success!'>Paid</p> :
+                        <Link to={`/dashboard/payment/${parcel._id}`}>
+                          <button className='btn-accent btn btn-sm p-3!'>Pay</button>
+                        </Link>
+                    }
+                  </td>
+
+                  {/* Delivery Status */}
+                  <td className='font-semibold'>
+                    {
+                      parcel.payment_status ?
+                        <p className='text-success!'>Deliverd</p> :
+                        <p className='text-error!'>Not Deliverd</p>
+                    }
+                  </td>
+
+                  {/* Action */}
                   <td>
                     <button className='btn btn-square hover:bg-accent'>
                       <FaMagnifyingGlass />

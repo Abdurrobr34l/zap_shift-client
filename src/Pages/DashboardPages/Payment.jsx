@@ -16,14 +16,27 @@ const Payment = () => {
     }
   })
 
+  const handlePayment = async () => {
+    const paymentInfo = {
+      cost: data.cost,
+      parcelId: data._id,
+      sender_email: data.sender_email,
+      parcel_name: data.parcel_name
+    }
+
+    const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+    // console.log(res.data);
+    window.location.href = res.data.url;
+  }
+
   if (isLoading) {
     return <Loading></Loading>
   }
 
   return (
     <div>
-      <h2>Please pay for: {data.parcel_name}</h2>
-      <button className="btn btn-accent">Pay</button>
+      <h2>Please pay <b>{data.cost}৳</b> for: {data.parcel_name}</h2>
+      <button onClick={handlePayment} className="btn btn-accent">Pay</button>
     </div>
   );
 };

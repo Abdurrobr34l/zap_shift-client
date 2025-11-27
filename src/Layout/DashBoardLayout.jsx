@@ -37,24 +37,22 @@ const DashBoardLayout = () => {
     { label: "Logout", path: "/logout", icon: MdLogout },
   ];
 
-  const renderLinks = (items) =>
-    items.map(({ label, path, icon: Icon }) => (
-      <li key={path}>
-        <Link
-          to={path}
-          className={`flex items-center gap-3 py-3 px-4 rounded-lg transition-all
+const renderLinks = (items) =>
+  items.map(({ label, path, icon: Icon }) => (
+    <li key={path}>
+      <Link
+        to={path}
+        className={`flex items-center gap-3 py-3 px-4 rounded-lg transition-all
         ${location.pathname === path
-              ? "bg-accent text-primary font-semibold"
-              : "hover:bg-base-300"
-            }`}
-        >
-          <Icon size={20} className="text-secondary"/>
-          <span size={20} className="hidden">{Icon}</span> {/* It is use to remove the icon unused error message*/}
-          <span>{label}</span>
-        </Link>
-      </li>
-    ));
-
+            ? "bg-accent text-primary font-semibold"
+            : "hover:bg-base-300"
+        }`}
+      >
+        <Icon size={20} className="text-secondary" />
+        <span>{label}</span>
+      </Link>
+    </li>
+  ));
 
   return (
     <div className="drawer lg:drawer-open">

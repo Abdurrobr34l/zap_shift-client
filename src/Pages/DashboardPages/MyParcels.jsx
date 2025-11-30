@@ -94,7 +94,8 @@ const MyParcels = () => {
                   <td className='flex gap-1 font-semibold'>
                     {
                       parcel.parcel_payment ?
-                        <p className='text-success!'>Paid</p> :
+                        <p className='text-success!'>Paid</p> 
+                        :
                         <Link to={`/dashboard/payment/${parcel._id}`}>
                           <button className='btn-accent btn btn-sm p-3!'>Pay</button>
                         </Link>

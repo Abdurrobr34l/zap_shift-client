@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxios from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
@@ -9,6 +9,7 @@ const SendParcel = () => {
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
   const { user } = useAuth()
   const axiosSecure = useAxios();
+  const navigate = useNavigate()
 
   const serviceCenters = useLoaderData();
   const senderRegion = useWatch({ control, name: "sender_region" });
@@ -68,6 +69,8 @@ const SendParcel = () => {
           text: "Your purchase has been confirmed.",
           icon: "success"
         });
+
+        navigate("/dashboard/my-parcels")
         reset();
       }
     });

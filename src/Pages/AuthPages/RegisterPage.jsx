@@ -5,12 +5,14 @@ import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import GoogleButton from "./GoogleButton";
 import axios from "axios";
-import { updateProfile } from "firebase/auth";
+import useAxios from "../../Hooks/useAxios";
+// import { updateProfile } from "firebase/auth";
 
 const RegisterPage = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const { registerUser, updateUserProfile } = useAuth()
   const navigate = useNavigate();
+  const axiosSecure = useAxios()
 
   const handleRegister = (data) => {
     const file = data.photo[0];
@@ -18,7 +20,7 @@ const RegisterPage = () => {
     // console.log(data);
 
     registerUser(data.email, data.password)
-      .then(result => {
+      .then(() => {
         // console.log(result.user);
 
         //* Store the image in formdata 
@@ -32,18 +34,31 @@ const RegisterPage = () => {
             // console.log("After image uploads", res.data);
             const imbbImageUrl = res.data.data.url;
 
+            //* Create user in database
+            const userInfo = {
+              email: data.email,
+              displayName: data.name,
+              photoURL: imbbImageUrl
+            }
+            axiosSecure.post("/users", userInfo)
+              .then(res => {
+                if (res.data.insertedId) {
+                  toast.success("User created inthe database");
+                }
+              })
+
             //* Update user profile
             const userProfile = {
               displayName: data.name,
               photoURL: imbbImageUrl
             }
             updateUserProfile(userProfile)
-            .then( () => {
-              console.log("User Profile updated");
-            })
-            .catch(err => {
-              console.log(err);
-            })
+              .then(() => {
+                console.log("User Profile updated");
+              })
+              .catch(err => {
+                console.log(err);
+              })
           })
 
         reset()

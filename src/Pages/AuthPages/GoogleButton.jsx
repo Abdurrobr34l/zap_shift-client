@@ -9,8 +9,8 @@ const GoogleButton = ({btnName}) => {
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
-    .then(result => {
-      console.log(result.user);
+    .then(() => {
+      // console.log(result.user);
       navigate(location?.state || "/")
     })
     .then(err => {

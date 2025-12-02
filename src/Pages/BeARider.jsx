@@ -4,6 +4,7 @@ import { useForm, useWatch } from "react-hook-form";
 import useAuth from "../Hooks/useAuth";
 import useAxios from "../Hooks/useAxios";
 import { useNavigate, useLoaderData } from "react-router";
+import { toast } from "react-toastify";
 
 const BeARider = () => {
   const { register, handleSubmit, reset, control } = useForm();
@@ -28,8 +29,11 @@ const BeARider = () => {
   // SUBMIT FORM
   const handleRiderRegistration = (data) => {
     axiosSecure.post("/riders", data)
-      .then(res => {
-        console.log("Rider Request Submitted:", res.data);
+      .then((res) => {
+        if(res.data.insertedId) {
+          toast.success("Your application has been submitted")
+        }
+
         navigate("/dashboard");
         reset();
       });

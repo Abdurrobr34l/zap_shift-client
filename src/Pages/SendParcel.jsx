@@ -7,9 +7,9 @@ import useAuth from "../Hooks/useAuth";
 
 const SendParcel = () => {
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
-  const { user } = useAuth()
+  const { user } = useAuth();
   const axiosSecure = useAxios();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const serviceCenters = useLoaderData();
   const senderRegion = useWatch({ control, name: "sender_region" });

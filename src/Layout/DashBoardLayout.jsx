@@ -24,7 +24,7 @@ const DashBoardLayout = () => {
   const mainMenu = [
     { label: "My Parcels", path: "my-parcels", icon: MdDashboard },
     { label: "Deliveries", path: "/deliveries", icon: MdLocalShipping },
-    { label: "Invoices", path: "/invoices", icon: MdReceipt },
+    { label: "Payment History", path: "payment-history", icon: MdReceipt },
     { label: "Stores", path: "/stores", icon: MdStore },
     { label: "Pricing Plan", path: "/pricing-plan", icon: MdOutlinePriceChange },
     { label: "Coverage Area", path: "/coverage-area", icon: MdLocationPin },

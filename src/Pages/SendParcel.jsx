@@ -48,32 +48,32 @@ const SendParcel = () => {
     // console.log("The cost is: ", cost);
     data.cost = cost
 
-    Swal.fire({
-      title: "Please confirm the cost",
-      html: `You charge is: <b>${cost}৳</b>`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#03373d",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, take it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        //* Save parcel info in the DB
-        axiosSecure.post("/parcels", data)
-          .then(res => {
-            console.log("After cost confirmed", res.data);
-          })
+      Swal.fire({
+        title: "Please confirm the cost",
+        html: `You charge is: <b>${cost}৳</b>`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#03373d",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, take it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          //* Save parcel info in the DB
+          axiosSecure.post("/parcels", data)
+            .then(res => {
+              console.log("After cost confirmed", res.data);
+            })
 
-        Swal.fire({
-          title: "Successful!",
-          text: "Your purchase has been confirmed.",
-          icon: "success"
-        });
+          Swal.fire({
+            title: "Successful!",
+            text: "Your purchase has been confirmed.",
+            icon: "success"
+          });
 
-        navigate("/dashboard/my-parcels")
-        reset();
-      }
-    });
+          navigate("/dashboard/my-parcels")
+          reset();
+        }
+      });
 
   };
 
@@ -160,7 +160,7 @@ const SendParcel = () => {
                 <input
                   type="email"
                   {...register("sender_email", { required: "Please fill the input" })}
-                  value={user?.email}
+                  defaultValue={user?.email}
                   className="input input-bordered w-full mt-1"
                   placeholder="Your Email Address"
                 />

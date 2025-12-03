@@ -5,7 +5,7 @@ import {
   MdLocalShipping,
   MdReceipt,
   MdStore,
-  MdOutlinePriceChange,
+  MdBikeScooter,
   MdLocationPin,
   MdSettings,
   MdPassword,
@@ -26,7 +26,7 @@ const DashBoardLayout = () => {
     { label: "Deliveries", path: "/deliveries", icon: MdLocalShipping },
     { label: "Payment History", path: "payment-history", icon: MdReceipt },
     { label: "Stores", path: "/stores", icon: MdStore },
-    { label: "Pricing Plan", path: "/pricing-plan", icon: MdOutlinePriceChange },
+    { label: "Approve Riders", path: "approved-riders", icon: MdBikeScooter },
     { label: "Coverage Area", path: "/coverage-area", icon: MdLocationPin },
   ];
 

@@ -45,9 +45,9 @@ const BeARider = () => {
 
         {/* Heading */}
         <div className="max-w-2xl mb-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-primary mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-4">
             Be a Rider
-          </h1>
+          </h2>
           <p className="text-secondary text-lg leading-relaxed">
             Join us as a rider and deliver parcels with speed and reliability.
           </p>

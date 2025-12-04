@@ -28,7 +28,7 @@ const ManageUsers = () => {
       roleInfo = { role: "user" };
     }
 
-    axiosSecure.patch(`/users/${user._id}`, roleInfo)
+    axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
       .then(res => {
         if (res.data.modifiedCount) {
           refetch();

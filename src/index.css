@@ -46,7 +46,7 @@ a {
 }
 
 .btn-white {
-  @apply py-6 text-[16px] font-bold bg-white  border-secondary shadow-none rounded-xl transition-all duration-300 ease-linear hover:text-primary-content hover:bg-accent hover:border-accent;
+  @apply py-6 text-[16px] font-bold bg-white border-transparent  border-secondary shadow-none rounded-xl transition-all duration-300 ease-linear hover:text-primary-content hover:bg-accent hover:border-accent;
 }
 .btn-accent {
   @apply py-6 text-[16px] font-bold bg-accent text-primary-content border-accent shadow-none rounded-xl transition-colors duration-300 ease-linear hover:text-secondary hover:bg-white;

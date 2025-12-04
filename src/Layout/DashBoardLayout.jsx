@@ -16,17 +16,23 @@ import {
 import Logo from "../../Components/Logo";
 import DashBoardProfile from "../Pages/DashboardPages/DashBoardProfile";
 import { FaUserCircle } from "react-icons/fa";
-
+import useRole from "../Hooks/useRole";
 
 const DashBoardLayout = () => {
   const location = useLocation();
+  const { role } = useRole(); // role from your hook
 
   // MENU DATA
   const mainMenu = [
     { label: "My Parcels", path: "my-parcels", icon: MdDashboard },
     { label: "Deliveries", path: "/deliveries", icon: MdLocalShipping },
-    { label: "Approve Riders", path: "approved-riders", icon: MdBikeScooter },
-    { label: "Manage Users", path: "manage-users", icon: FaUserCircle },
+    // Only show these if admin
+    ...(role === "admin"
+      ? [
+          { label: "Approve Riders", path: "approved-riders", icon: MdBikeScooter },
+          { label: "Manage Users", path: "manage-users", icon: FaUserCircle },
+        ]
+      : []),
     { label: "Stores", path: "/stores", icon: MdStore },
     { label: "Coverage Area", path: "/coverage-area", icon: MdLocationPin },
     { label: "Payment History", path: "payment-history", icon: MdReceipt },
@@ -39,26 +45,26 @@ const DashBoardLayout = () => {
     { label: "Logout", path: "/logout", icon: MdLogout },
   ];
 
-const renderLinks = (items) =>
-  items.map(({ label, path, icon: Icon }) => (
-    <li key={path}>
-      <Link
-        to={path}
-        className={`flex items-center gap-3 py-3 px-4 rounded-lg transition-all
+  const renderLinks = (items) =>
+    items.map(({ label, path, icon: Icon }) => (
+      <li key={path}>
+        <Link
+          to={path}
+          className={`flex items-center gap-3 py-3 px-4 rounded-lg transition-all
         ${location.pathname === path
-            ? "bg-accent text-primary font-semibold"
-            : "hover:bg-base-300"
-        }`}
-      >
-        <Icon size={20} className="text-secondary" />
-        <span>{label}</span>
-      </Link>
-    </li>
-  ));
+              ? "bg-accent text-primary font-semibold"
+              : "hover:bg-base-300"
+            }`}
+        >
+          <Icon size={20} className="text-secondary" />
+          <span>{label}</span>
+        </Link>
+      </li>
+    ));
 
   return (
     <div className="drawer lg:drawer-open">
-      <input id="my-drawer-4" type="checkbox" className="drawer-toggle" defaultChecked/>
+      <input id="my-drawer-4" type="checkbox" className="drawer-toggle" defaultChecked />
 
       {/* PAGE CONTENT */}
       <div className="drawer-content bg-[#EAECED] min-h-screen">
@@ -70,7 +76,7 @@ const renderLinks = (items) =>
 
           <div></div>
 
-          <DashBoardProfile></DashBoardProfile>
+          <DashBoardProfile />
         </nav>
 
         {/* PAGE BODY */}

@@ -43,7 +43,6 @@ const ManageUsers = () => {
       });
   };
 
-
   const handleMakeAdmin = (user) => {
     handleUpdateRole(user, "makeAdmin");
   };

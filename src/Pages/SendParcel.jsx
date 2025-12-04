@@ -24,31 +24,29 @@ const SendParcel = () => {
     return regionDistricts.map(d => d.district);
   }
 
-  const handleSendParcel = (data) => {
-    // console.log("Form Submitted:", data);
+  const handleSendParcel = async (data) => {
+    try {
+      const isParcelDocument = data.parcel_type === "document";
+      const isSameDistricts = data.sender_district === data.receiver_district;
+      const parcelWeight = parseFloat(data.parcel_weight);
 
-    const isParcelDocument = data.parcel_type === "document";
-    const isSameDistricts = data.sender_district === data.receiver_district;
-    // console.log(isSameDistricts);
-    const parcelWeight = parseFloat(data.parcel_weight)
-
-    let cost = 0;
-    if (isParcelDocument) {
-      cost = isSameDistricts ? 60 : 80;
-    } else {
-      if (parcelWeight < 3) {
-        cost = isSameDistricts ? 110 : 150;
+      let cost = 0;
+      if (isParcelDocument) {
+        cost = isSameDistricts ? 60 : 80;
       } else {
-        const minCharge = isSameDistricts ? 110 : 150;
-        const extraWeight = parcelWeight - 3;
-        const extraCharge = isSameDistricts ? extraWeight * 40 : extraWeight * 40 + 40;
-        cost = minCharge + extraCharge
+        if (parcelWeight < 3) {
+          cost = isSameDistricts ? 110 : 150;
+        } else {
+          const minCharge = isSameDistricts ? 110 : 150;
+          const extraWeight = parcelWeight - 3;
+          const extraCharge = isSameDistricts ? extraWeight * 40 : extraWeight * 40 + 40;
+          cost = minCharge + extraCharge;
+        }
       }
-    }
-    // console.log("The cost is: ", cost);
-    data.cost = cost
 
-      Swal.fire({
+      data.cost = cost;
+
+      const result = await Swal.fire({
         title: "Please confirm the cost",
         html: `You charge is: <b>${cost}৳</b>`,
         icon: "warning",
@@ -56,25 +54,31 @@ const SendParcel = () => {
         confirmButtonColor: "#03373d",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, take it!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          //* Save parcel info in the DB
-          axiosSecure.post("/parcels", data)
-            .then(res => {
-              console.log("After cost confirmed", res.data);
-            })
-
-          Swal.fire({
-            title: "Successful!",
-            text: "Your purchase has been confirmed.",
-            icon: "success"
-          });
-
-          navigate("/dashboard/my-parcels")
-          reset();
-        }
       });
 
+      if (result.isConfirmed) {
+        // Save parcel info in the DB
+        const res = await axiosSecure.post("/parcels", data);
+        const parcelId = res.data.insertedId; // <-- important
+
+        Swal.fire({
+          title: "Successful!",
+          text: "Your parcel has been created.",
+          icon: "success"
+        });
+
+        reset();
+        // Navigate to Payment page with parcelId
+        navigate(`/dashboard/payment/${parcelId}`);
+      }
+    } catch (error) {
+      console.error("Error sending parcel:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "Something went wrong while sending the parcel.",
+        icon: "error"
+      });
+    }
   };
 
   return (
@@ -110,7 +114,6 @@ const SendParcel = () => {
 
       {/* Form */}
       <form onSubmit={handleSubmit(handleSendParcel)} className="space-y-10">
-
         {/* Parcel Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-10 border-b border-secondary-content">
           <div>
@@ -139,11 +142,9 @@ const SendParcel = () => {
 
         {/* Sender + Receiver */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-
           {/* Sender */}
           <div>
             <h3 className="font-bold text-primary mb-4">Sender Details</h3>
-
             <div className="space-y-4">
               <div>
                 <label className="text-sm font-semibold text-primary">Sender Name</label>
@@ -154,7 +155,6 @@ const SendParcel = () => {
                   placeholder="Sender Name"
                 />
               </div>
-
               <div>
                 <label className="text-sm font-semibold text-primary">Email Address</label>
                 <input
@@ -165,7 +165,6 @@ const SendParcel = () => {
                   placeholder="Your Email Address"
                 />
               </div>
-
               <div>
                 <label className="text-sm font-semibold text-primary">Sender Phone No</label>
                 <input
@@ -175,7 +174,6 @@ const SendParcel = () => {
                   placeholder="Phone No"
                 />
               </div>
-
               <div>
                 <label className="text-sm font-semibold text-primary">Your Region</label>
                 <select
@@ -188,7 +186,6 @@ const SendParcel = () => {
                   ))}
                 </select>
               </div>
-
               <div>
                 <label className="text-sm font-semibold text-primary">Your District</label>
                 <select
@@ -201,7 +198,6 @@ const SendParcel = () => {
                   ))}
                 </select>
               </div>
-
               <div>
                 <label className="text-sm font-semibold text-primary">Pickup Instruction</label>
                 <textarea
@@ -217,7 +213,6 @@ const SendParcel = () => {
           {/* Receiver */}
           <div>
             <h3 className="font-bold text-primary mb-4">Receiver Details</h3>
-
             <div className="space-y-4">
               <div>
                 <label className="text-sm font-semibold text-primary">Receiver Name</label>
@@ -228,7 +223,6 @@ const SendParcel = () => {
                   placeholder="Receiver Name"
                 />
               </div>
-
               <div>
                 <label className="text-sm font-semibold text-primary">Receiver Email Address</label>
                 <input
@@ -238,7 +232,6 @@ const SendParcel = () => {
                   placeholder="Receiver Email Address"
                 />
               </div>
-
               <div>
                 <label className="text-sm font-semibold text-primary">Receiver Contact No</label>
                 <input
@@ -248,22 +241,18 @@ const SendParcel = () => {
                   placeholder="Contact No"
                 />
               </div>
-
-              {/* Region */}
               <div>
                 <label className="text-sm font-semibold text-primary">Receiver Region</label>
                 <select
                   {...register("receiver_region", { required: "Please fill the input" })}
                   className="select select-bordered w-full mt-1"
                 >
-                  <option>Select District</option>
+                  <option>Select Region</option>
                   {regions.map((region, index) => (
                     <option key={index} value={region}>{region}</option>
                   ))}
                 </select>
               </div>
-
-              {/* Districts */}
               <div>
                 <label className="text-sm font-semibold text-primary">Receiver District</label>
                 <select
@@ -276,7 +265,6 @@ const SendParcel = () => {
                   ))}
                 </select>
               </div>
-
               <div>
                 <label className="text-sm font-semibold text-primary">Delivery Instruction</label>
                 <textarea

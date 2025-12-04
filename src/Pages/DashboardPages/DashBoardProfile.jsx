@@ -15,6 +15,7 @@ const DashBoardProfile = () => {
 
       <div className="flex flex-col leading-tight">
         <span className="text-sm font-semibold">{user?.displayName}</span>
+        <span className="text-xs text-gray-500">{user?.email}</span>
         <span className="text-xs text-gray-500">Admin</span>
       </div>
 

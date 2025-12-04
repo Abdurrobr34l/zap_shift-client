@@ -4,20 +4,54 @@ import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../Hooks/useAxios';
 import { FaUserShield } from 'react-icons/fa';
 import { FiShieldOff } from 'react-icons/fi';
+import Swal from 'sweetalert2';
 
 const ManageUsers = () => {
   const axiosSecure = useAxios();
 
-  const { data } = useQuery({
+  const { refetch, data } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users`)
       return res.data
     }
   });
-  console.log(data);
-  const handleMakeAdmin = () => { }
-  const handleRemoveAdmin = () => { }
+
+  const handleUpdateRole = (user, action) => {
+    let roleInfo = {};
+
+    if (action === "makeAdmin") {
+      roleInfo = { role: "admin" };
+    }
+
+    if (action === "removeAdmin") {
+      roleInfo = { role: "user" };
+    }
+
+    axiosSecure.patch(`/users/${user._id}`, roleInfo)
+      .then(res => {
+        if (res.data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `${user.displayName} updated to ${roleInfo.role}`,
+            showConfirmButton: false,
+            timer: 1000
+          });
+        }
+      });
+  };
+
+
+  const handleMakeAdmin = (user) => {
+    handleUpdateRole(user, "makeAdmin");
+  };
+
+  const handleRemoveAdmin = (user) => {
+    handleUpdateRole(user, "removeAdmin");
+  };
+
 
   return (
     <div>
@@ -59,7 +93,7 @@ const ManageUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.map((user, index) => <tr>
+            {data?.map((user, index) => <tr key={user._id}>
               <td>
                 {index + 1}
               </td>
@@ -88,12 +122,12 @@ const ManageUsers = () => {
                 {user.role === 'admin' ?
                   <button
                     onClick={() => handleRemoveAdmin(user)}
-                    className='btn bg-red-300'>
+                    className='btn bg-error'>
                     <FiShieldOff />
                   </button> :
                   <button
                     onClick={() => handleMakeAdmin(user)}
-                    className='btn bg-green-400'>
+                    className='btn bg-success'>
                     <FaUserShield></FaUserShield>
                   </button>
                 }

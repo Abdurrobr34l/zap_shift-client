@@ -5,6 +5,7 @@ import { FaUserCheck } from 'react-icons/fa';
 import { IoPersonRemoveSharp } from 'react-icons/io5';
 import { FaEye, FaTrashCan } from 'react-icons/fa6';
 import Swal from 'sweetalert2';
+import PageTitle from '../../utilities/PageTitle';
 
 const ApprovedRiders = () => {
 
@@ -44,9 +45,7 @@ const ApprovedRiders = () => {
 
   return (
     <div>
-      <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-4">
-        Riders Pending Approval: {data?.length}
-      </h2>
+      <PageTitle>Riders Pending Approval: {data?.length}</PageTitle>
 
       <div className="overflow-x-auto">
         <table className="table table-zebra">

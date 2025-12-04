@@ -6,6 +6,7 @@ import { FaMagnifyingGlass, FaTrashCan } from 'react-icons/fa6';
 import { FiEdit } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router';
+import PageTitle from '../../utilities/PageTitle';
 
 const MyParcels = () => {
   const { user } = useAuth()
@@ -62,7 +63,7 @@ const MyParcels = () => {
   return (
     <div>
       {/* Title */}
-      <h2 className="text-4xl font-bold text-primary mb-6">Total Parcels: {data?.length}</h2>
+      <PageTitle>Total Parcels: {data?.length}</PageTitle>
 
       {/* Parcels Info Table */}
       <div className="overflow-x-auto">

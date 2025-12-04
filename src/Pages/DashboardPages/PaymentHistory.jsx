@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useAuth from '../../Hooks/useAuth';
 import useAxios from '../../Hooks/useAxios';
+import PageTitle from '../../utilities/PageTitle';
 
 const PaymentHistory = () => {
   const { user } = useAuth();
@@ -17,7 +18,7 @@ const PaymentHistory = () => {
 
   return (
     <div>
-      <h2 className="text-4xl font-bold text-primary mb-6">Payment History: {data?.length}</h2>
+      <PageTitle>Payment History: {data?.length}</PageTitle>
 
       <div className="overflow-x-auto">
         <table className="table table-zebra">

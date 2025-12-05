@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PageTitle from '../../utilities/PageTitle';
 import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../Hooks/useAxios';
@@ -8,11 +8,12 @@ import Swal from 'sweetalert2';
 
 const ManageUsers = () => {
   const axiosSecure = useAxios();
+   const [searchText, setSearchText] = useState('');
 
   const { refetch, data } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", searchText],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users`)
+      const res = await axiosSecure.get(`/users?searchText=${searchText}`)
       return res.data
     }
   });
@@ -28,7 +29,7 @@ const ManageUsers = () => {
       roleInfo = { role: "user" };
     }
 
-    axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
+    axiosSecure.patch(`/users/${user._id}`, roleInfo)
       .then(res => {
         if (res.data.modifiedCount) {
           refetch();
@@ -55,8 +56,9 @@ const ManageUsers = () => {
   return (
     <div>
       <PageTitle>Manage Users: {data?.length}</PageTitle>
-      {/* <p>search text: {searchText}</p> */}
-      <label className="input">
+
+      <p>Search text: {searchText}</p>
+      <label className="input h-12 rounded-lg mt-2">
         <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g
             strokeLinejoin="round"
@@ -70,7 +72,7 @@ const ManageUsers = () => {
           </g>
         </svg>
         <input
-          // onChange={(e) => setSearchText(e.target.value)}
+          onChange={(e) => setSearchText(e.target.value)}
           type="search"
           className="grow"
           placeholder="Search users" />

@@ -21,6 +21,8 @@ const MyParcels = () => {
     }
   });
 
+  console.log(data);
+
   //* All Parcel header
   const tableHeaders = [
     { id: 1, name: "" },
@@ -29,7 +31,8 @@ const MyParcels = () => {
     { id: 4, name: "Total Cost" },
     { id: 5, name: "Payment" },
     { id: 6, name: "Delivery Status" },
-    { id: 7, name: "Actions" },
+    { id: 7, name: "Tracking ID" },
+    { id: 8, name: "Actions" },
   ];
 
   //* Delete Parcel
@@ -106,11 +109,14 @@ const MyParcels = () => {
                   {/* Delivery Status */}
                   <td className='font-semibold'>
                     {
-                      parcel.payment_status ?
+                      parcel.deliveryStatus === "deliverd" ?
                         <p className='text-success!'>Deliverd</p> :
-                        <p className='text-error!'>Not Deliverd</p>
+                        <p className='text-error!'>pending-pickup</p>
                     }
                   </td>
+                  
+                  {/* Tracking ID */}
+                  <td>{parcel.trackingId}</td>
 
                   {/* Action */}
                   <td>

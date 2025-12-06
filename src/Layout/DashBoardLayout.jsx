@@ -12,6 +12,7 @@ import {
   MdHelp,
   MdLogout,
   MdMenu,
+  MdAssignmentTurnedIn,
 } from "react-icons/md";
 import Logo from "../../Components/Logo";
 import DashBoardProfile from "../Pages/DashboardPages/DashBoardProfile";
@@ -25,16 +26,17 @@ const DashBoardLayout = () => {
   // MENU DATA
   const mainMenu = [
     { label: "My Parcels", path: "my-parcels", icon: MdDashboard },
-    { label: "Deliveries", path: "/deliveries", icon: MdLocalShipping },
+    // { label: "Deliveries", path: "/deliveries", icon: MdLocalShipping },
     // Only show these if admin
     ...(role === "admin"
       ? [
-          { label: "Approve Riders", path: "approved-riders", icon: MdBikeScooter },
-          { label: "Manage Users", path: "manage-users", icon: FaUserCircle },
+        { label: "Manage Users", path: "manage-users", icon: FaUserCircle },
+        { label: "Approve Riders", path: "approved-riders", icon: MdBikeScooter },
+        { label: "Assign Riders", path: "assign-riders", icon: MdAssignmentTurnedIn },
         ]
       : []),
-    { label: "Stores", path: "/stores", icon: MdStore },
-    { label: "Coverage Area", path: "/coverage-area", icon: MdLocationPin },
+    // { label: "Stores", path: "/stores", icon: MdStore },
+    // { label: "Coverage Area", path: "/coverage-area", icon: MdLocationPin },
     { label: "Payment History", path: "payment-history", icon: MdReceipt },
   ];
 
